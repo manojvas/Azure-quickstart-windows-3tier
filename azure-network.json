@@ -253,7 +253,7 @@
             }
           },
           {
-            "name": "denyotherssh",
+            "name": "denyotherrdp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
