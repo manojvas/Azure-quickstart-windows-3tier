@@ -43,7 +43,7 @@
     "gatewaysubnetFirst3": "[concat(variables('vnetfirst2'), add(int(variables('ipValues')[2]),4))]",
 
     "vnetSettings": {
-      "vnetName": "[concat('hmrorvnet', parameters('environmentPostfix'))]",
+      "vnetName": "[concat('TTvnet', parameters('environmentPostfix'))]",
       "addressPrefix": "[parameters('baseaddress')]",
       "dbSubnet": {
         "name": "dbsubnet",
@@ -150,7 +150,7 @@
               "description": "Allow DMZ Subnet",
               "protocol": "Tcp",
               "sourcePortRange": "*",
-              "destinationPortRange": "5432",
+              "destinationPortRange": "1433",
               "sourceAddressPrefix": "[variables('vnetSettings').authorwebSubnet.prefix]",
               "destinationAddressPrefix": "*",
               "access": "Allow",
@@ -165,7 +165,7 @@
               "description": "Allow MGMT Subnet",
               "protocol": "Tcp",
               "sourcePortRange": "*",
-              "destinationPortRange": "5432",
+              "destinationPortRange": "1433",
               "sourceAddressPrefix": "[variables('vnetSettings').jumpboxSubnet.prefix]",
               "destinationAddressPrefix": "*",
               "access": "Allow",
@@ -174,11 +174,11 @@
             }
           },
           {
-            "name": "Allowjumpboxssh",
+            "name": "Allowjumpboxrdp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
-              "destinationPortRange": "22",
+              "destinationPortRange": "3389",
               "sourceAddressPrefix": "VirtualNetwork",
               "destinationAddressPrefix": "*",
               "access": "Allow",
@@ -188,11 +188,11 @@
           },
 
           {
-            "name": "denyotherssh",
+            "name": "denyotherrdp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
-              "destinationPortRange": "22",
+              "destinationPortRange": "3389",
               "sourceAddressPrefix": "VirtualNetwork",
               "destinationAddressPrefix": "*",
               "access": "Deny",
@@ -214,11 +214,11 @@
       "properties": {
         "securityRules": [
           {
-            "name": "AllowMGMTssh",
+            "name": "AllowMGMTrdp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
-              "destinationPortRange": "22",
+              "destinationPortRange": "3389",
               "sourceAddressPrefix": "[variables('vnetSettings').jumpboxSubnet.prefix]",
               "destinationAddressPrefix": "*",
               "access": "Allow",
@@ -257,7 +257,7 @@
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
-              "destinationPortRange": "22",
+              "destinationPortRange": "3389",
               "sourceAddressPrefix": "[variables('vpnclientipprefix')]",
               "destinationAddressPrefix": "*",
               "access": "Deny",
@@ -281,11 +281,11 @@
       "properties": {
         "securityRules": [
           {
-            "name": "sshallow",
+            "name": "rdpallow",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
-              "destinationPortRange": "22",
+              "destinationPortRange": "3389",
               "sourceAddressPrefix": "*",
               "destinationAddressPrefix": "*",
               "access": "Allow",
